@@ -17,7 +17,6 @@ namespace crawler
         {
         	Console.WriteLine("Paste the link to an album");
         	string url = Console.ReadLine();
-        	//https://vk.com/album-44792216_248342530
         	url = url.Replace("https://vk.com/album", "");
         	string [] ids = url.Split(new Char [] {'_', ' '});
         	string api = "https://api.vk.com/method/photos.get.xml?owner_id=" + ids[0] + "&album_id=" + ids[1];
