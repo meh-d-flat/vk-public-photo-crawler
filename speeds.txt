@@ -1,0 +1,45 @@
+https://vk.com/album%_%
+
+C:\Users\%user%\Desktop\a
+C:\Users\%user%\Desktop\b
+C:\Users\%user%\Desktop\c
+
+
+110 files - 50 229 202 bytes
+
+first		second
+16071 - 1 - 26627
+126581 - 2 - 16638
+12819 - 3 - 11534
+
+after test all checksums were equal(sha-256 via 7-Zip)
+
+1.
+foreach (string pic in pics)
+{
+WebClient wc = new WebClient();
+string save_path = (path + '\u005c');
+string filename = Path.GetFileName(pic);
+wc.DownloadFile(pic, save_path + filename);
+c++;
+}
+
+2.
+WebClient wc = new WebClient();
+string save_path = (path + '\u005c');
+foreach (string pic in pics)
+{
+string filename = Path.GetFileName(pic);
+wc.DownloadFile(pic, save_path + filename);
+c++;
+}
+
+3.
+WebClient wc = new WebClient();            	
+foreach (string pic in pics)
+{
+string save_path = (path + '\u005c');
+string filename = Path.GetFileName(pic);
+wc.DownloadFile(pic, save_path + filename);
+c++;
+}
