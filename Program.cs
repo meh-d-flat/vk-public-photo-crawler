@@ -19,7 +19,6 @@ namespace crawler
         	string url = Console.ReadLine();
         	url = url.Replace("https://vk.com/album", "");
         	string [] ids = url.Split(new Char [] {'_', ' '});
-
         	string api = "https://api.vk.com/method/photos.get.xml?owner_id=" + ids[0] + "&album_id=" + ids[1] + "&v=5.0&rev=0";
             StreamReader sendGet = new StreamReader(HttpWebRequest.Create(api).GetResponse().GetResponseStream());
             string str = sendGet.ReadToEnd();
@@ -31,6 +30,7 @@ namespace crawler
             {
             	string e = doct.DocumentElement.SelectSingleNode("//error_msg").InnerText;
             	Console.WriteLine(e);
+            	File.Delete("pics.xml");
             	Console.ReadKey();
             	return;
             }
@@ -41,10 +41,10 @@ namespace crawler
             }
             //XmlNode count = doct.DocumentElement.FirstChild;
             //Console.WriteLine("Album contains " + count.InnerText + " pictures");
-            
+           
             /*
-            count="1000" - by default | offset= |
-            /response count innertext | if (count > 1000) then offset=1000
+            count="1000" - by default | offset= 
+            /response count innertext | if (count > 1000) then offset=
             make a method for api request
             */
             XmlNodeList node = doct.SelectNodes("/response/items/photo"); // /response/photo for api v3 or  //photo
@@ -70,7 +70,7 @@ namespace crawler
                         streamWriter3.WriteLine(pic["photo_807"].InnerText);
                 }
                 else
-                if (pic["photo_604"] != null) //src_big src_small/photo_75 are the smallest, no interest
+                if (pic["photo_604"] != null) //src_big
                 {
                     using (StreamWriter streamWriter4 = new StreamWriter("links.txt", true))
                         streamWriter4.WriteLine(pic["photo_604"].InnerText);
@@ -99,20 +99,23 @@ namespace crawler
             string path = Console.ReadLine();
             string[] pics = File.ReadAllLines("links.txt");
             int c = 0;
-            foreach (string pic in pics)
-            {
-                WebClient wc = new WebClient();
-                string save_path = (path + '\u005c');
-                string filename = Path.GetFileName(pic);
-                wc.DownloadFile(pic, save_path + filename);
-                c++;
-            }
-            Console.WriteLine(c + "photos downloaded");
+            var watch = Stopwatch.StartNew();
+			WebClient wc = new WebClient();            	
+			foreach (string pic in pics)
+			{
+				string save_path = (path + '\u005c');
+				string filename = Path.GetFileName(pic);
+				wc.DownloadFile(pic, save_path + filename);
+				c++;
+			}
+            watch.Stop();
+			long elapsedMs = watch.ElapsedMilliseconds;
+            Console.WriteLine(c + " photos downloaded in " + elapsedMs + "ms");
             File.Delete("pics.xml");
             File.Delete("links.txt");
             Console.ReadKey();
              
-
         }
     }
 }
+
