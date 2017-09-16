@@ -19,6 +19,7 @@ namespace crawler
         	string url = Console.ReadLine();
         	url = url.Replace("https://vk.com/album", "");
         	string [] ids = url.Split(new Char [] {'_', ' '});
+
         	string api = "https://api.vk.com/method/photos.get.xml?owner_id=" + ids[0] + "&album_id=" + ids[1] + "&v=5.0&rev=0";
             StreamReader sendGet = new StreamReader(HttpWebRequest.Create(api).GetResponse().GetResponseStream());
             string str = sendGet.ReadToEnd();
