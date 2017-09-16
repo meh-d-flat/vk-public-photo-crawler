@@ -5,7 +5,7 @@ C:\Users\%user%\Desktop\b
 C:\Users\%user%\Desktop\c
 
 
-110 files - 50 229 202 bytes
+110 files - 50Â 229Â 202 bytes
 
 first		second
 16071 - 1 - 26627
@@ -15,6 +15,7 @@ first		second
 after test all checksums were equal(sha-256 via 7-Zip)
 
 1.
+int c = 0;
 foreach (string pic in pics)
 {
 WebClient wc = new WebClient();
@@ -25,6 +26,7 @@ c++;
 }
 
 2.
+int c = 0;
 WebClient wc = new WebClient();
 string save_path = (path + '\u005c');
 foreach (string pic in pics)
@@ -35,6 +37,7 @@ c++;
 }
 
 3.
+int c = 0;
 WebClient wc = new WebClient();            	
 foreach (string pic in pics)
 {
