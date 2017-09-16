@@ -53,7 +53,7 @@ namespace crawler
                             {
                                 using (StreamWriter streamWriter4 = new StreamWriter("links.txt", true))
                                     streamWriter4.WriteLine(pic["src_big"].InnerText);
-                            }
+                            }//add an else for error <error_msg> if one of id's is invalid or album is private
 
             }
             catch(Exception)
@@ -73,7 +73,9 @@ namespace crawler
                 wc.DownloadFile(pic, save_path + filename);
             }
             Console.WriteLine("Done!");
-            Console.WriteLine("Want to generate an html gallery? [y/n]");
+            File.Delete("pics.xml");
+            File.Delete("links.txt");
+            /*Console.WriteLine("Want to generate an html gallery? [y/n]");
             string yo = Console.ReadLine();
             if (yo != null && yo == "y"){
             Process gallery = new  Process();
@@ -81,7 +83,7 @@ namespace crawler
             gallery.StartInfo.Arguments = (path + '\u005c');
             gallery.StartInfo.WorkingDirectory = (path + '\u005c');
             gallery.Start();}
-            else
+            else*/
             Console.ReadKey();
 
         }
